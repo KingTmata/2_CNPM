@@ -1,0 +1,561 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thanh Toán - PCZONE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/thanh-toan.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Nunito', sans-serif; background: #f4f7f9; color: #1c1c2e; }
+    a { text-decoration: none; }
+
+    /* Layout */
+    .checkout-container { max-width: 1100px; margin: 30px auto 50px; padding: 0 20px; }
+    .checkout-layout { display: grid; grid-template-columns: 1.5fr 1fr; gap: 30px; align-items: flex-start; }
+
+    /* Checkout Main */
+    .checkout-main { display: flex; flex-direction: column; gap: 25px; }
+    .checkout-card { background: white; border-radius: 16px; padding: 30px; box-shadow: 0 5px 25px rgba(0,0,0,0.05); }
+    .checkout-title { font-size: 18px; font-weight: 800; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+    .step-num { background: #00bcd4; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+
+    /* Form - nền trắng dễ đọc */
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 14px; color: #1c1c2e; }
+    .form-group input, .form-group textarea { width: 100%; padding: 12px 15px; border: 1.5px solid #d1d5db; border-radius: 10px; font-family: 'Nunito', sans-serif; font-size: 14px; outline: none; transition: 0.2s; background: #ffffff; color: #1c1c2e; }
+    .form-group input:focus, .form-group textarea:focus { border-color: #00bcd4; box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.1); }
+
+    /* Payment Options - nền trắng dễ đọc */
+    .payment-option { display: block; margin-bottom: 12px; cursor: pointer; }
+    .payment-option input { display: none; }
+    .payment-box { display: flex; align-items: center; gap: 15px; padding: 15px; border: 2px solid #e2e8f0; border-radius: 12px; transition: 0.2s; background: #ffffff; }
+    .payment-option input:checked + .payment-box { border-color: #00bcd4; background: #f0fdff; }
+    .payment-box span { font-size: 24px; }
+    .pay-name { font-weight: 700; font-size: 14px; color: #1c1c2e; }
+    .pay-desc { font-size: 12px; color: #64748b; margin-top: 2px; }
+
+    /* ORDER SUMMARY - KHÓA CỨNG BÊN PHẢI, CHỈ CUỘN BÊN TRONG */
+    .order-summary {
+      background: #1c1c2e;
+      color: white;
+      padding: 30px;
+      border-radius: 20px;
+      position: sticky;
+      top: 20px;
+      align-self: start;
+      max-height: calc(100vh - 40px);
+      display: flex;
+      flex-direction: column;
+    }
+    .summary-title {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 20px;
+      color: #ffffff;
+      flex-shrink: 0;
+    }
+
+    /* Phần danh sách sản phẩm - chỉ cuộn khi nhiều */
+    #orderItems {
+      flex: 1;
+      overflow-y: auto;
+      min-height: 0;
+    }
+
+    /* Phần tổng tiền + nút - cố định dưới cùng */
+    .order-summary .price-line,
+    .order-summary .btn-submit,
+    .order-summary > div:last-child {
+      flex-shrink: 0;
+    }
+
+    .item-mini { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #333; }
+    .item-mini-img { width: 50px; height: 50px; background: #333; border-radius: 8px; object-fit: contain; }
+    .item-mini-info { flex: 1; }
+    .item-mini-name { font-weight: 600; font-size: 13px; color: #f1f5f9; }
+    .item-mini-price { color: #00bcd4; font-size: 12px; font-weight: 700; margin-top: 3px; }
+
+    .price-line { display: flex; justify-content: space-between; margin-bottom: 12px; color: #cbd5e1; font-size: 14px; }
+    .price-line.total {
+      border-top: 1px solid #444;
+      padding-top: 15px;
+      margin-top: 15px;
+      color: #ffffff;
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .btn-submit {
+      display: block;
+      width: 100%;
+      background: #00bcd4;
+      color: #ffffff;
+      text-align: center;
+      padding: 16px;
+      border-radius: 12px;
+      font-weight: 800;
+      margin-top: 20px;
+      transition: 0.3s;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      font-family: 'Nunito', sans-serif;
+    }
+    .btn-submit:hover { background: #0097a7; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0, 188, 212, 0.3); }
+
+    .empty-order { text-align: center; padding: 40px 20px; }
+    .empty-order p { color: #a0aec0; margin-bottom: 20px; }
+
+    @media (max-width: 850px) {
+      .checkout-layout { grid-template-columns: 1fr; }
+      .order-summary { max-height: none; position: static; }
+      #orderItems { overflow-y: visible; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== STICKY NAVBAR (giống main) ===== -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a class="logo" href="../main+ds+sp.html">PC<span>ZONE</span></a>
+
+    <ul class="nav-links">
+      <li><a href="../main+ds+sp.html">Trang chủ</a></li>
+
+      <li class="has-mega" id="megaTrigger">
+        <a href="best-sellers.html">Danh mục ▾</a>
+
+        <div class="mega-menu" id="megaMenu">
+          <div class="mega-inner">
+
+            <div class="mega-col">
+              <div class="mega-col-title">
+                <span class="mega-icon">💻</span> Laptop & PC
+              </div>
+              <div class="mega-group">
+                <div class="mega-group-label">Laptop</div>
+                <a href="best-sellers.html?category=Laptop" class="mega-item">
+                  <span class="item-name">Laptop Văn Phòng</span>
+                </a>
+                <a href="best-sellers.html?category=Laptop" class="mega-item">
+                  <span class="item-name">Laptop Gaming</span>
+                </a>
+                <a href="best-sellers.html?category=Laptop" class="mega-item">
+                  <span class="item-name">Laptop Đồ Họa</span>
+                </a>
+              </div>
+              <div class="mega-group">
+                <div class="mega-group-label">PC Bộ</div>
+                <a href="best-sellers.html?category=PC" class="mega-item">
+                  <span class="item-name">PC Gaming</span>
+                </a>
+                <a href="best-sellers.html?category=PC" class="mega-item">
+                  <span class="item-name">PC Văn Phòng</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="mega-divider"></div>
+            <div class="mega-col">
+              <div class="mega-col-title">
+                <span class="mega-icon">⚙️</span> Linh Kiện
+              </div>
+              <div class="mega-group">
+                <div class="mega-group-label">Xử lý & Bộ nhớ</div>
+                <a href="best-sellers.html?category=CPU" class="mega-item">
+                  <span class="item-name">CPU</span>
+                </a>
+                <a href="best-sellers.html?category=RAM" class="mega-item">
+                  <span class="item-name">RAM</span>
+                </a>
+                <a href="best-sellers.html?category=Storage" class="mega-item">
+                  <span class="item-name">SSD / HDD</span>
+                </a>
+              </div>
+              <div class="mega-group">
+                <div class="mega-group-label">Card & Bo mạch</div>
+                <a href="best-sellers.html?category=GPU" class="mega-item">
+                  <span class="item-name">GPU (Card đồ họa)</span>
+                </a>
+                <a href="best-sellers.html?category=Mainboard" class="mega-item">
+                  <span class="item-name">Mainboard</span>
+                </a>
+                <a href="best-sellers.html?category=PSU" class="mega-item">
+                  <span class="item-name">PSU (Nguồn)</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="mega-divider"></div>
+            <div class="mega-col">
+              <div class="mega-col-title">
+                <span class="mega-icon">🖱️</span> Phụ Kiện
+              </div>
+              <div class="mega-group">
+                <div class="mega-group-label">Ngoại vi</div>
+                <a href="best-sellers.html?category=Monitor" class="mega-item">
+                  <span class="item-name">Màn Hình</span>
+                </a>
+                <a href="best-sellers.html?category=Peripherals" class="mega-item">
+                  <span class="item-name">Bàn Phím</span>
+                </a>
+                <a href="best-sellers.html?category=Peripherals" class="mega-item">
+                  <span class="item-name">Chuột Gaming</span>
+                </a>
+              </div>
+              <div class="mega-group">
+                <div class="mega-group-label">Âm thanh & Case</div>
+                <a href="best-sellers.html?category=Peripherals" class="mega-item">
+                  <span class="item-name">Tai nghe</span>
+                </a>
+                <a href="best-sellers.html?category=Case" class="mega-item">
+                  <span class="item-name">Case & Tản nhiệt</span>
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </li>
+      <li><a href="buildpc.html">Build PC</a></li>
+    </ul>
+
+    <div class="search-wrap">
+      <input class="search-input" type="text" id="searchInput" placeholder="Bạn cần tìm gì?" autocomplete="off" onkeydown="if(event.key==='Enter')doSearch()">
+      <button class="search-btn" onclick="doSearch()">
+        <svg viewBox="0 0 24 24" stroke-width="2.5" fill="none" stroke="white"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+    </div>
+
+    <div class="nav-actions">
+      <a class="icon-btn" href="gio-hang.html" title="Giỏ hàng">
+        <svg viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="currentColor"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="badge" id="cartBadgeNav">0</span>
+      </a>
+
+      <a class="icon-btn" href="don-mua.html" title="Xem đơn hàng đã đặt" style="font-size:12px;font-weight:800;color:#60A5FA;">
+        📋
+      </a>
+
+      <button class="icon-btn avatar-btn" id="avatarBtn" title="Đăng nhập">
+        <svg viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </button>
+
+    </div>
+  </div>
+</nav>
+<div class="checkout-container">
+  <div class="checkout-layout">
+    
+    <!-- CỘT TRÁI: NHẬP THÔNG TIN -->
+    <div class="checkout-main">
+      
+      <div class="checkout-card">
+        <h2 class="checkout-title"><span class="step-num">1</span> Thông tin nhận hàng</h2>
+        <div class="form-group">
+          <label>Họ và tên *</label>
+          <input type="text" id="inputName" placeholder="Nhập tên người nhận">
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+          <div class="form-group">
+            <label>Số điện thoại *</label>
+            <input type="tel" id="inputPhone" placeholder="Số điện thoại liên lạc">
+          </div>
+          <div class="form-group">
+            <label>Email (Nhận hóa đơn)</label>
+            <input type="email" id="inputEmail" placeholder="email@vi-du.com">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Địa chỉ nhận hàng *</label>
+          <input type="text" id="inputAddress" placeholder="Số nhà, tên đường, phường/xã, quận/huyện...">
+        </div>
+        <div class="form-group">
+          <label>Ghi chú đơn hàng</label>
+          <textarea rows="3" id="inputNote" placeholder="Ví dụ: Giao giờ hành chính..."></textarea>
+        </div>
+      </div>
+
+      <div class="checkout-card">
+        <h2 class="checkout-title"><span class="step-num">2</span> Phương thức thanh toán</h2>
+        
+        <label class="payment-option">
+          <input type="radio" name="pay" value="cod" checked>
+          <div class="payment-box">
+            <span>🚚</span>
+            <div>
+              <div class="pay-name">Thanh toán khi nhận hàng (COD)</div>
+              <div class="pay-desc">Kiểm tra hàng rồi mới thanh toán tiền mặt</div>
+            </div>
+          </div>
+        </label>
+
+        <label class="payment-option">
+          <input type="radio" name="pay" value="bank">
+          <div class="payment-box">
+            <span>🏦</span>
+            <div>
+              <div class="pay-name">Chuyển khoản ngân hàng (QR Code)</div>
+              <div class="pay-desc">Hệ thống tự động xác nhận trong 1 phút</div>
+            </div>
+          </div>
+        </label>
+
+        <label class="payment-option">
+          <input type="radio" name="pay" value="wallet">
+          <div class="payment-box">
+            <span>💳</span>
+            <div>
+              <div class="pay-name">Ví điện tử Momo / ZaloPay</div>
+              <div class="pay-desc">Thanh toán nhanh qua ứng dụng</div>
+            </div>
+          </div>
+        </label>
+      </div>
+
+    </div>
+
+    <!-- CỘT PHẢI: TỔNG TIỀN -->
+    <aside class="order-summary">
+      <h3 class="summary-title">Đơn hàng của bạn</h3>
+      
+      <div id="orderItems">
+        <!-- JS render đơn hàng ở đây -->
+      </div>
+
+      <div class="price-line">
+        <span>Tạm tính</span>
+        <span id="subtotalPrice">0đ</span>
+      </div>
+      <div class="price-line">
+        <span>Phí vận chuyển</span>
+        <span style="color: #10b981;">Miễn phí</span>
+      </div>
+      
+      <div class="price-line total">
+        <span>Tổng cộng</span>
+        <span id="totalPrice">0đ</span>
+      </div>
+
+      <button class="btn-submit" id="btnPlaceOrder">HOÀN TẤT ĐẶT HÀNG</button>
+      <div style="text-align: center; font-size: 11px; color: #718096; margin-top: 15px;">
+        🔒 Bảo mật thông tin thanh toán 100%
+      </div>
+    </aside>
+
+  </div>
+</div>
+
+<!-- Toast thông báo thành công -->
+<div class="toast-success" id="successToast" style="display:none;position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#10B981;color:white;padding:16px 32px;border-radius:12px;font-weight:700;font-size:16px;z-index:9999;box-shadow:0 8px 30px rgba(16,185,129,0.4);border:2px solid #059669;text-align:center;">
+  ✅ Đặt hàng thành công! Đang chuyển đến đơn mua...
+</div>
+
+<!-- ===== LOGIN MODAL ===== -->
+<div class="login-modal" id="loginModal">
+  <div class="login-box">
+    <button class="login-close" id="modalClose">&times;</button>
+    <h2 class="login-title">Đăng nhập PCZONE</h2>
+    <p class="login-subtitle">Chào mừng bạn quay trở lại!</p>
+    <div id="loginError" style="display:none;color:#dc2626;background:#fee2e2;padding:10px;border-radius:8px;margin-bottom:12px;font-size:13px;font-weight:600;text-align:center"></div>
+    <div class="login-field">
+      <label>Email</label>
+      <input type="email" id="loginEmail" placeholder="email@vi-du.com" autocomplete="off">
+    </div>
+    <div class="login-field">
+      <label>Mật khẩu</label>
+      <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="new-password">
+    </div>
+    <button class="login-btn" id="loginBtn">Đăng nhập</button>
+    <div class="login-hint">
+      <strong>Tài khoản mẫu:</strong><br>
+      Admin: <code>admin@pczone.vn</code> / <code>admin123</code><br>
+      Khách: <code>user@pczone.vn</code> / <code>user123</code>
+    </div>
+  </div>
+</div>
+
+<style>
+.login-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; justify-content: center; align-items: center; }
+.login-modal.show { display: flex; }
+.login-box { background: white; border-radius: 20px; padding: 35px; width: 100%; max-width: 400px; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
+.login-close { position: absolute; top: 15px; right: 20px; background: none; border: none; font-size: 28px; cursor: pointer; color: #718096; }
+.login-close:hover { color: #dc2626; }
+.login-title { font-size: 22px; font-weight: 800; text-align: center; margin-bottom: 5px; color: #1c1c2e; }
+.login-subtitle { text-align: center; color: #718096; font-size: 14px; margin-bottom: 25px; }
+.login-field { margin-bottom: 18px; }
+.login-field label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 14px; color: #1c1c2e; }
+.login-field input { width: 100%; padding: 12px 15px; border: 1.5px solid #e2e8f0; border-radius: 10px; font-family: 'Nunito', sans-serif; font-size: 14px; outline: none; transition: 0.2s; }
+.login-field input:focus { border-color: #00bcd4; }
+.login-btn { width: 100%; background: #00bcd4; color: white; border: none; padding: 14px; border-radius: 12px; font-weight: 800; font-size: 16px; cursor: pointer; transition: 0.3s; font-family: 'Nunito', sans-serif; }
+.login-btn:hover { background: #0097a7; }
+.login-hint { margin-top: 20px; padding: 12px; background: #f7fafc; border-radius: 10px; font-size: 12px; color: #718096; text-align: center; line-height: 1.8; }
+.login-hint code { background: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-size: 11px; color: #1c1c2e; }
+</style>
+
+<div class="mega-backdrop" id="megaBackdrop"></div>
+<script src="../js/data-products.js"></script>
+<script src="../js/data-customers.js"></script>
+<script src="../js/loginbaner.js"></script>
+<script src="../js/cart.js"></script>
+<script>
+// ===== LẤY SẢN PHẨM CẦN THANH TOÁN =====
+function getCheckoutItems() {
+    try {
+        var saved = localStorage.getItem('checkout_items');
+        if (saved) {
+            var parsed = JSON.parse(saved);
+            if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        }
+    } catch(e) {}
+    return getCart();
+}
+
+function getCheckoutTotal() {
+    var items = getCheckoutItems();
+    var total = 0;
+    items.forEach(function(item) {
+        var price = parseInt(item.price.toString().replace(/\./g, '').replace(/[^0-9]/g, ''));
+        total += price * (item.quantity || 1);
+    });
+    return total;
+}
+
+// Render đơn hàng
+function renderOrder() {
+    var items = getCheckoutItems();
+    var container = document.getElementById('orderItems');
+    
+    if (!items || items.length === 0) {
+        container.innerHTML = '<div class="empty-order"><p>Không có sản phẩm nào để thanh toán</p><a href="gio-hang.html" style="color:#00bcd4;">Quay lại giỏ hàng</a></div>';
+        document.getElementById('subtotalPrice').textContent = '0đ';
+        document.getElementById('totalPrice').textContent = '0đ';
+        document.getElementById('btnPlaceOrder').disabled = true;
+        return;
+    }
+    
+    var html = '';
+    items.forEach(function(item) {
+        html += '<div class="item-mini">' +
+            '<img src="' + (item.img || '../assets/media/product/default.svg') + '" class="item-mini-img" alt="' + item.name + '">' +
+            '<div class="item-mini-info">' +
+                '<div class="item-mini-name">' + item.name + '</div>' +
+                '<div class="item-mini-price">' + item.price + ' x ' + (item.quantity || 1) + '</div>' +
+            '</div>' +
+        '</div>';
+    });
+    
+    container.innerHTML = html;
+    
+    var total = getCheckoutTotal();
+    document.getElementById('subtotalPrice').textContent = formatVND(total);
+    document.getElementById('totalPrice').textContent = formatVND(total);
+}
+
+// Đặt hàng
+document.getElementById('btnPlaceOrder').addEventListener('click', function() {
+    var name = document.getElementById('inputName').value.trim();
+    var phone = document.getElementById('inputPhone').value.trim();
+    var address = document.getElementById('inputAddress').value.trim();
+    var email = document.getElementById('inputEmail').value.trim();
+    var note = document.getElementById('inputNote').value.trim();
+    
+    if (!name || !phone || !address) {
+        alert('Vui lòng điền đầy đủ thông tin bắt buộc!');
+        return;
+    }
+    
+    var items = getCheckoutItems();
+    if (!items || items.length === 0) {
+        alert('Không có sản phẩm để thanh toán!');
+        return;
+    }
+    
+    var totalAmount = getCheckoutTotal();
+    
+    // Lấy phương thức thanh toán
+    var paymentMethod = 'COD';
+    var payRadio = document.querySelector('input[name="pay"]:checked');
+    if (payRadio) {
+        var payMap = { 'cod': 'COD', 'bank': 'Chuyển khoản', 'wallet': 'Ví điện tử' };
+        paymentMethod = payMap[payRadio.value] || 'COD';
+    }
+    
+    // Nếu là chuyển khoản -> sang trang QR
+    if (payRadio && payRadio.value === 'bank') {
+        localStorage.setItem('temp_total', totalAmount);
+        window.location.href = 'qr-payment.html';
+        return;
+    }
+    
+    // Lưu đơn hàng
+    try {
+        var existingOrders = JSON.parse(localStorage.getItem('pczone_orders') || '[]');
+        var newOrderId = 'ORD' + String(Date.now()).slice(-6);
+        
+        var newOrder = {
+            id: newOrderId,
+            customer: name,
+            date: new Date().toISOString().slice(0, 10),
+            total: totalAmount,
+            payment: paymentMethod,
+            status: 'Chờ xác nhận',
+            items: items.map(function(item) { return item.name; }),
+            phone: phone,
+            email: email,
+            address: address,
+            note: note
+        };
+        
+        existingOrders.push(newOrder);
+        localStorage.setItem('pczone_orders', JSON.stringify(existingOrders));
+        
+        // Đồng bộ khách hàng
+        var customers = JSON.parse(localStorage.getItem('pczone_customers') || '[]');
+        var existingCustomer = customers.find(function(c) { return c.phone === phone || c.email === email; });
+        if (existingCustomer) {
+            existingCustomer.orders += 1;
+            existingCustomer.spent += totalAmount;
+        } else {
+            customers.push({
+                id: customers.length + 1,
+                name: name,
+                email: email || 'N/A',
+                phone: phone,
+                joined: new Date().toISOString().slice(0, 10),
+                orders: 1,
+                spent: totalAmount,
+                status: 'Hoạt động'
+            });
+        }
+        localStorage.setItem('pczone_customers', JSON.stringify(customers));
+        
+    } catch (e) {
+        console.error('Lỗi lưu đơn hàng:', e);
+    }
+    
+    // Chỉ xoá sản phẩm đã thanh toán khỏi giỏ hàng, giữ lại các sản phẩm chưa thanh toán
+    var cart = getCart();
+    var paidNames = {};
+    items.forEach(function(item) { paidNames[item.name + item.price] = true; });
+    var remaining = cart.filter(function(item) { return !paidNames[item.name + item.price]; });
+    saveCart(remaining);
+    localStorage.removeItem('checkout_items');
+    
+    // Hiện toast + tự động chuyển về đơn mua sau 1 giây
+    document.getElementById('successToast').style.display = 'block';
+    setTimeout(function() {
+        window.location.href = 'don-mua.html';
+    }, 1000);
+});
+
+// Khởi tạo
+document.addEventListener('DOMContentLoaded', renderOrder);
+</script>
+</body>
+</html>

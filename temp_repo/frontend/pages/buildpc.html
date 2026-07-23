@@ -1,0 +1,483 @@
+﻿<!DOCTYPE html>
+
+<html lang="vi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PCZone - Build PC</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <link rel="stylesheet" href="../css/BUILDPC.css">
+
+</head>
+
+<body>
+
+<!-- ===== STICKY NAVBAR ===== -->
+
+<nav class="navbar">
+
+  <div class="nav-inner">
+
+    <a class="logo" href="../main+ds+sp.html">PC<span>ZONE</span></a>
+
+    <ul class="nav-links">
+
+      <li><a href="../main+ds+sp.html">Trang chủ</a></li>
+
+      <li class="has-mega" id="megaTrigger">
+
+        <a href="best-sellers.html">Danh mục ▾</a>
+
+        <div class="mega-menu" id="megaMenu">
+
+          <div class="mega-inner">
+
+            <div class="mega-col">
+
+              <div class="mega-col-title"><span class="mega-icon">💻</span> Laptop & PC</div>
+
+              <div class="mega-group">
+
+                <div class="mega-group-label">Laptop</div>
+
+                <a href="best-sellers.html?category=Laptop" class="mega-item"><span class="item-name">Laptop Văn Phòng</span></a>
+
+                <a href="best-sellers.html?category=Laptop" class="mega-item"><span class="item-name">Laptop Gaming</span></a>
+
+                <a href="best-sellers.html?category=Laptop" class="mega-item"><span class="item-name">Laptop Đồ Họa</span></a>
+
+              </div>
+
+              <div class="mega-group">
+
+                <div class="mega-group-label">PC Bộ</div>
+
+                <a href="buildpc.html" class="mega-item"><span class="item-name">PC Gaming</span></a>
+
+                <a href="best-sellers.html?category=PC" class="mega-item"><span class="item-name">PC Văn Phòng</span></a>
+
+              </div>
+
+            </div>
+
+            <div class="mega-divider"></div>
+
+            <div class="mega-col">
+
+              <div class="mega-col-title"><span class="mega-icon">⚙️</span> Linh Kiện</div>
+
+              <div class="mega-group">
+
+                <div class="mega-group-label">Xử Lý & Bộ Nhớ</div>
+
+                <a href="best-sellers.html?category=CPU" class="mega-item"><span class="item-name">CPU</span></a>
+
+                <a href="best-sellers.html?category=RAM" class="mega-item"><span class="item-name">RAM</span></a>
+
+                <a href="best-sellers.html?category=Storage" class="mega-item"><span class="item-name">SSD / HDD</span></a>
+
+              </div>
+
+              <div class="mega-group">
+
+                <div class="mega-group-label">Card & Bo Mạch</div>
+
+                <a href="best-sellers.html?category=GPU" class="mega-item"><span class="item-name">GPU (Card Đồ Họa)</span></a>
+
+                <a href="best-sellers.html?category=Mainboard" class="mega-item"><span class="item-name">Mainboard</span></a>
+
+                <a href="best-sellers.html?category=PSU" class="mega-item"><span class="item-name">PSU (Nguồn)</span></a>
+
+              </div>
+
+            </div>
+
+            <div class="mega-divider"></div>
+
+            <div class="mega-col">
+
+              <div class="mega-col-title"><span class="mega-icon">🖱️</span> Phụ Kiện</div>
+
+              <div class="mega-group">
+
+                <div class="mega-group-label">Ngoại Vi</div>
+
+                <a href="best-sellers.html?category=Monitor" class="mega-item"><span class="item-name">Màn Hình</span></a>
+
+                <a href="best-sellers.html?category=Peripherals" class="mega-item"><span class="item-name">Bàn Phím</span></a>
+
+                <a href="best-sellers.html?category=Peripherals" class="mega-item"><span class="item-name">Chuột Gaming</span></a>
+
+              </div>
+
+              <div class="mega-group">
+
+                <div class="mega-group-label">Âm Thanh & Case</div>
+
+                <a href="best-sellers.html?category=Peripherals" class="mega-item"><span class="item-name">Tai nghe</span></a>
+
+                <a href="best-sellers.html?category=Case" class="mega-item"><span class="item-name">Case & Tản Nhiệt</span></a>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </li>
+
+      <li><a href="buildpc.html" class="active">Build PC</a></li>
+
+    </ul>
+
+    <div class="search-wrap">
+
+      <input class="search-input" type="text" id="searchInput" placeholder="Bạn cần tìm gì?" autocomplete="off">
+
+      <button class="search-btn" onclick="doSearch()">
+
+        <svg viewBox="0 0 24 24" stroke-width="2.5" fill="none" stroke="white"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+
+      </button>
+
+    </div>
+
+    <div class="nav-actions">
+
+      <a class="icon-btn" href="gio-hang.html">
+
+        <svg viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="currentColor"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+
+        <span class="badge" id="cartBadgeNav">0</span>
+
+      </a>
+
+      <button class="icon-btn avatar-btn" id="avatarBtn" title="Đăng nhập">
+
+        <svg viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+
+      </button>
+
+    </div>
+
+  </div>
+
+</nav>
+
+<!-- LAYOUT CHÍNH: 3 CỘT -->
+
+<div class="trang-build">
+
+    <!-- CỘT TRÁI: Chọn linh kiện -->
+
+    <aside class="cot-trai">
+
+        <h2 class="tieu-de-cot">CHOOSE COMPONENT</h2>
+
+        <div class="luoi-linhkien" id="luoiLinhKien"></div>
+
+        <div class="nhom-nut-duoi">
+
+            <button class="nut-xoa-het" id="nutXoaHet">🗑️ CLEAR ALL</button>
+
+            <button class="nut-luu-build" id="nutLuuBuild">💾 SAVE BUILD</button>
+
+        </div>
+
+    </aside>
+
+    <!-- CỘT GIỮA: Danh sách sản phẩm -->
+
+    <main class="cot-giua">
+
+        <div class="dau-cot-giua">
+
+            <div class="thanh-filter">
+
+                <select class="dropdown-filter" id="locFormFactor">
+
+                    <option value="tat-ca">Loại ▾</option>
+
+                    <option value="AM4">AM4</option>
+
+                    <option value="AM5">AM5</option>
+
+                    <option value="LGA1700">LGA1700</option>
+
+                    <option value="DDR5">DDR5</option>
+
+                    <option value="NVMe">NVMe</option>
+
+                    <option value="ATX">ATX</option>
+
+                </select>
+
+                <select class="dropdown-filter" id="locHang">
+
+                    <option value="tat-ca">Hãng ▾</option>
+
+                </select>
+
+                <select class="dropdown-filter" id="locGia">
+
+                    <option value="tat-ca">Giá ▾</option>
+
+                    <option value="duoi-3">Dưới 3 triệu</option>
+
+                    <option value="3-10">3 - 10 triệu</option>
+
+                    <option value="tren-10">Trên 10 triệu</option>
+
+                </select>
+
+                <select class="dropdown-filter" id="sapXep">
+
+                    <option value="pho-bien">Sort by: Popular</option>
+
+                    <option value="gia-tang">Giá tăng dần</option>
+
+                    <option value="gia-giam">Giá giảm dần</option>
+
+                </select>
+
+                <div class="build-request-wrap">
+
+                    <input type="text" class="dropdown-filter build-request-input" id="buildRequest" placeholder="Yêu cầu build PC của bạn..." autocomplete="off">
+
+                    <button class="build-request-btn" id="buildRequestBtn" title="Gửi yêu cầu">🚀</button>
+
+                    <button class="build-request-btn-hist" id="lichSuChatBtn" title="Lịch sử chat với AI">📋</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="vung-chon-sp">
+
+            <div class="vung-cuon-giua">
+
+                <div class="danh-sach-sp" id="danhSachSanPham"></div>
+
+                <div class="phan-trang">
+
+                    <span class="dem-ket-qua" id="demKetQua">Hiển thị 0 sản phẩm</span>
+
+                    <div class="nhom-so-trang" id="nhomSoTrang"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- CỘT PHẢI: Build Summary -->
+
+    <aside class="cot-phai">
+
+        <button class="nut-mo-cau-hinh" id="nutMoCauHinh" title="Xem / ẩn cấu hình">:::</button>
+
+        <div class="noi-dung-cot-phai">
+
+        <!-- Tổng giá -->
+
+        <div class="khoi-tong-gia">
+
+            <p class="nhan-total">Tổng tiền</p>
+
+            <p class="so-tien" id="soTienTong">0đ</p>
+
+        </div>
+
+        <!-- Nút hành động -->
+
+        <div class="nhom-nut-chinh">
+
+            <button class="nut-them-gio" id="nutThemGio">🛒 Add To Cart</button>
+
+            <button class="nut-chia-se" id="nutChiaSe">🔗 Share Build</button>
+
+        </div>
+
+        <hr class="duong-ngang">
+
+        <!-- Power & Usage -->
+
+        <div class="khoi-tieu-de-phu">
+
+            <span class="bieu-tuong">⚡</span>
+
+            <strong>POWER & USAGE</strong>
+
+        </div>
+
+        <div class="khoi-power">
+
+            <div class="o-thong-so">
+
+                <p class="nhan-nho">Total Power</p>
+
+                <p class="so-lon cyan" id="tongCongSuat">~ 372W</p>
+
+            </div>
+
+            <div class="o-thong-so">
+
+                <p class="nhan-nho">Est. Monthly Cost</p>
+
+                <p class="so-lon cyan" id="chiPhiThang">~ $17 / month</p>
+
+                <p class="nhan-nho">(0.1 $/kWh)</p>
+
+            </div>
+
+        </div>
+
+        <hr class="duong-ngang">
+
+        <!-- Estimated Performance -->
+
+        <div class="khoi-tieu-de-phu">
+
+            <span class="bieu-tuong">🎮</span>
+
+            <strong>PERFORMANCE</strong>
+
+            <span class="nhan-nho"> ------- (1080p, Ultra)</span>
+
+            <a href="fps-calculator.html" style="margin-left:auto;padding:2px 8px;border:2px solid #000;border-radius:6px;background:linear-gradient(135deg,#60A5FA,#0EA5E9);color:white;font-size:10px;font-weight:700;text-decoration:none;cursor:pointer;font-family:inherit;white-space:nowrap">📊 FPS</a>
+
+        </div>
+
+        <div class="danh-sach-fps" id="danhSachFPS"></div>
+
+        <p class="chu-thich" id="chuThichFPS">* Cần đủ CPU, Mainboard, RAM, SSD, PSU và GPU để tính FPS.</p>
+
+        </div>
+
+        <!-- Panel cấu hình -->
+
+        <div class="panel-cau-hinh" id="panelCauHinh">
+
+            <div class="dau-panel-cau-hinh">
+
+                <h2 class="tieu-de-cau-hinh">Cấu hình đã chọn</h2>
+
+                <div class="thanh-hanh-dong">
+
+                    <button class="nut-hanh-dong" id="nutLuuCauHinh">💾 Lưu cấu hình</button>
+
+                    <button class="nut-hanh-dong" id="nutTaiExcel">📊 Tải Excel</button>
+
+                    <button class="nut-hanh-dong" id="nutLamMoi">🔄 Làm mới</button>
+
+                </div>
+
+            </div>
+
+            <div class="danh-sach-cau-hinh" id="danhSachCauHinh"></div>
+
+        </div>
+
+    </aside>
+
+</div>
+
+<!-- Modal thông báo -->
+
+<div class="lop-overlay" id="lopOverlay">
+
+    <div class="hop-modal">
+
+        <p class="noi-dung-modal" id="noiDungModal">Thông báo</p>
+
+        <button class="nut-dong-modal" id="nutDongModal">OK</button>
+
+    </div>
+
+</div>
+
+<!-- LOGIN MODAL -->
+
+<div class="login-modal" id="loginModal">
+
+  <div class="login-box">
+
+    <button class="login-close" id="modalClose">&times;</button>
+
+    <h2 class="login-title">Đăng nhập PCZONE</h2>
+
+    <p class="login-subtitle">Chào mừng bạn quay trở lại!</p>
+
+    <div id="loginError" style="display:none;color:#dc2626;background:#fee2e2;padding:10px;border-radius:8px;margin-bottom:12px;font-size:13px;font-weight:600;text-align:center"></div>
+
+    <div class="login-field">
+
+      <label>Email</label>
+
+      <input type="email" id="loginEmail" placeholder="email@vi-du.com" autocomplete="off">
+
+    </div>
+
+    <div class="login-field">
+
+      <label>Mật khẩu</label>
+
+      <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="new-password">
+
+    </div>
+
+    <button class="login-btn" id="loginBtn">Đăng nhập</button>
+
+    <div class="login-hint">
+
+      <strong>Tài khoản mẫu:</strong><br>
+
+      Admin: <code>admin@pczone.vn</code> / <code>admin123</code><br>
+
+      Khách: <code>user@pczone.vn</code> / <code>user123</code>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="mega-backdrop" id="megaBackdrop"></div>
+
+<script src="../js/api.js"></script>
+
+<script src="../js/product-service.js"></script>
+
+<script src="../js/data-products.js"></script>
+
+<script src="../js/data-customers.js"></script>
+
+<script src="../js/loginbaner.js"></script>
+
+<script src="../js/cart.js"></script>
+
+<script src="../js/ai-chat.js"></script>
+<script src="../js/buildpc.js"></script>
+
+</body>
+
+</html>

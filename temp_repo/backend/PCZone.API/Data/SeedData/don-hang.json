@@ -1,0 +1,7 @@
+[
+  { "id": 1, "khachHangId": 3, "ngayDat": "2025-06-10T00:00:00", "trangThai": "Đã xác nhận", "tongTien": 17500000, "diaChiGiao": "123 Lê Lợi, Quận 1, TP.HCM", "phuongThucThanhToan": "Chuyển khoản" },
+  { "id": 2, "khachHangId": 4, "ngayDat": "2025-06-11T00:00:00", "trangThai": "Đang giao", "tongTien": 44200000, "diaChiGiao": "456 Nguyễn Huệ, Quận Bình Thạnh, TP.HCM", "phuongThucThanhToan": "COD" },
+  { "id": 3, "khachHangId": 5, "ngayDat": "2025-06-12T00:00:00", "trangThai": "Hoàn thành", "tongTien": 2500000, "diaChiGiao": "789 Trần Hưng Đạo, Quận 5, TP.HCM", "phuongThucThanhToan": "VNPAY" },
+  { "id": 4, "khachHangId": 6, "ngayDat": "2025-06-13T00:00:00", "trangThai": "Chờ xác nhận", "tongTien": 10400000, "diaChiGiao": "321 Cách Mạng Tháng 8, Quận 10, TP.HCM", "phuongThucThanhToan": "Chuyển khoản" },
+  { "id": 5, "khachHangId": 2, "ngayDat": "2025-06-14T00:00:00", "trangThai": "Đã hủy", "tongTien": 4900000, "diaChiGiao": "456 Nguyễn Huệ, Quận Bình Thạnh, TP.HCM", "phuongThucThanhToan": "VNPAY" }
+]

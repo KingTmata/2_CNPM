@@ -1,0 +1,8 @@
+[
+  { "id": 1, "ten": "Admin", "email": "admin@pczone.vn", "matKhau": "admin123", "soDienThoai": "0987654321", "diaChi": "123 Lê Lợi, Quận 1, TP.HCM", "vaiTro": "Admin", "ngayTao": "2025-01-01T00:00:00" },
+  { "id": 2, "ten": "Khách", "email": "user@pczone.vn", "matKhau": "user123", "soDienThoai": "0912345678", "diaChi": "456 Nguyễn Huệ, Quận Bình Thạnh, TP.HCM", "vaiTro": "Customer", "ngayTao": "2025-01-15T00:00:00" },
+  { "id": 3, "ten": "Nguyễn Minh Anh", "email": "anh@gmail.com", "matKhau": "password123", "soDienThoai": "0901234567", "diaChi": "123 Lê Lợi, Quận 1, TP.HCM", "vaiTro": "Customer", "ngayTao": "2024-11-01T00:00:00" },
+  { "id": 4, "ten": "Trần Hoàng Nam", "email": "nam@gmail.com", "matKhau": "password123", "soDienThoai": "0912345678", "diaChi": "456 Nguyễn Huệ, Quận Bình Thạnh, TP.HCM", "vaiTro": "Customer", "ngayTao": "2024-12-15T00:00:00" },
+  { "id": 5, "ten": "Lê Thị Bích", "email": "bich@gmail.com", "matKhau": "password123", "soDienThoai": "0923456789", "diaChi": "789 Trần Hưng Đạo, Quận 5, TP.HCM", "vaiTro": "Customer", "ngayTao": "2025-01-20T00:00:00" },
+  { "id": 6, "ten": "Phạm Văn Đức", "email": "duc@gmail.com", "matKhau": "password123", "soDienThoai": "0934567890", "diaChi": "321 Cách Mạng Tháng 8, Quận 10, TP.HCM", "vaiTro": "Customer", "ngayTao": "2025-02-05T00:00:00" }
+]

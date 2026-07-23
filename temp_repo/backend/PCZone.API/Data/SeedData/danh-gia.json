@@ -1,0 +1,8 @@
+[
+  { "id": 1, "sanPhamId": 101, "khachHangId": 3, "soSao": 5, "noiDung": "Sản phẩm rất tốt, đóng gói cẩn thận, giao hàng nhanh chóng. Sẽ ủng hộ shop lần sau.", "ngayTao": "2026-06-15T00:00:00" },
+  { "id": 2, "sanPhamId": 101, "khachHangId": 4, "soSao": 4, "noiDung": "Hàng chính hãng, giá hợp lý. Đóng gói cẩn thận, ship nhanh.", "ngayTao": "2026-06-10T00:00:00" },
+  { "id": 3, "sanPhamId": 101, "khachHangId": 5, "soSao": 5, "noiDung": "Mua lần thứ 2 rồi, chất lượng vẫn rất ổn. Sẽ giới thiệu cho bạn bè.", "ngayTao": "2026-06-05T00:00:00" },
+  { "id": 4, "sanPhamId": 108, "khachHangId": 4, "soSao": 5, "noiDung": "CPU cực kỳ mạnh, overclock tốt", "ngayTao": "2025-06-05T00:00:00" },
+  { "id": 5, "sanPhamId": 506, "khachHangId": 3, "soSao": 5, "noiDung": "Card xịn nhất hiện tại, không cần bàn", "ngayTao": "2025-06-08T00:00:00" },
+  { "id": 6, "sanPhamId": 604, "khachHangId": 5, "soSao": 4, "noiDung": "Tốc độ nhanh, nhiệt độ hơi cao", "ngayTao": "2025-06-10T00:00:00" }
+]

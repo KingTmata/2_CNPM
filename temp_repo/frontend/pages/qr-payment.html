@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thanh Toán QR - PCZONE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/qr-payment.css">
+</head>
+<body>
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="../main+ds+sp.html" class="logo">PC<span>ZONE</span></a>
+    <div style="font-size: 14px; color: #718096;">Thanh toán an toàn</div>
+  </div>
+</nav>
+<div class="main-content">
+    <div class="qr-container">
+        <!-- BOX TRÁI: QR ảnh -->
+        <div class="qr-left">
+            <img src="../assets/media/product/emuotori.png" alt="Mã QR Thanh Toán">
+        </div>
+        <!-- BOX PHẢI: Text -->
+        <div class="qr-right">
+            <div class="status-badge">⏳ Đang chờ quét mã...</div>
+            <p style="color: #718096; font-size: 14px; margin: 0;">Tổng thanh toán</p>
+            <div class="total-amount" id="displayTotal">0đ</div>
+            <div class="bank-info-box">
+                <div class="info-item">
+                    <span class="label">Chủ tài khoản:</span>
+                    <span class="value">LY MINH DUONG</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Số tài khoản:</span>
+                    <span class="value">150320076666</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Ngân hàng:</span>
+                    <span class="value">MB Bank</span>
+                </div>
+            </div>
+            <button class="btn-confirm" onclick="confirmPaid()">XÁC NHẬN ĐÃ CHUYỂN KHOẢN</button>
+            <a href="thanh-toan.html" class="back-btn">← Quay lại trang thanh toán</a>
+        </div>
+    </div>
+</div>
+<script src="../js/qr-payment.js"></script>
+</body>
+</html>
