@@ -29,7 +29,7 @@ public class AIService : IAIService
 
         // Doc tu bien moi truong (file .env)
         _apiKey = Environment.GetEnvironmentVariable("GEMINI_API_KEY") ?? "";
-        _model = Environment.GetEnvironmentVariable("GEMINI_MODEL") ?? "gemini-3.5-flash";
+        _model = Environment.GetEnvironmentVariable("GEMINI_MODEL") ?? "gemini-3.1-flash-lite";
         
         var tempRaw = Environment.GetEnvironmentVariable("GEMINI_TEMPERATURE");
         if (!double.TryParse(tempRaw, out var tempParsed))
