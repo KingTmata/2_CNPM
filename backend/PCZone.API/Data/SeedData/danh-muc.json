@@ -1,0 +1,15 @@
+[
+  { "id": 1, "ten": "CPU", "moTa": "Bộ vi xử lý", "hinhAnh": null },
+  { "id": 2, "ten": "GPU", "moTa": "Card đồ họa", "hinhAnh": null },
+  { "id": 3, "ten": "Laptop", "moTa": "Máy tính xách tay", "hinhAnh": null },
+  { "id": 4, "ten": "Cooler", "moTa": "Tản nhiệt CPU", "hinhAnh": null },
+  { "id": 5, "ten": "Mainboard", "moTa": "Bo mạch chủ", "hinhAnh": null },
+  { "id": 6, "ten": "RAM", "moTa": "Bộ nhớ trong", "hinhAnh": null },
+  { "id": 7, "ten": "Storage", "moTa": "Ổ cứng lưu trữ", "hinhAnh": null },
+  { "id": 8, "ten": "Case", "moTa": "Vỏ máy tính", "hinhAnh": null },
+  { "id": 9, "ten": "PSU", "moTa": "Nguồn máy tính", "hinhAnh": null },
+  { "id": 10, "ten": "Fans", "moTa": "Quạt tản nhiệt", "hinhAnh": null },
+  { "id": 11, "ten": "Monitor", "moTa": "Màn hình", "hinhAnh": null },
+  { "id": 12, "ten": "Peripherals", "moTa": "Linh kiện ngoại vi", "hinhAnh": null },
+  { "id": 13, "ten": "PC Bộ", "moTa": "PC Gaming build sẵn", "hinhAnh": null }
+]

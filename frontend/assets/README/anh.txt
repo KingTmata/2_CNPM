@@ -1,0 +1,57 @@
+DANH SÁCH FILE ẢNH SẢN PHẨM
+============================
+
+TỔNG CỘNG: 123 file ảnh
+
+FILE ẢNH MỚI (từ 1401 trở đi - Sản phẩm cao cấp từ An Phát PC):
+- 1401.webp
+- 1402.jpg
+- 1403.webp
+- 1404.jpg
+- 1405.jpg
+- 1406.jpg
+- 1407.jpg
+- 1408.webp
+- 1409.jpg
+- 1410.jpg
+- 1411.webp
+- 1501.jpg
+- 1502.jpg
+- 1503.jpg
+- 1504.jpg
+- 1505.jpg
+- 1506.webp
+- 1601.jpg
+- 1602.jpg
+- 1603.jpg
+- 1604.jpg
+- 1605.jpg
+- 1701.jpg
+- 1702.jpg
+- 1703.jpg
+- 1704.jpg
+- 1801.jpg
+- 1802.jpg
+- 1803.jpg
+- 1804.jpg
+- 1805.webp
+- 1806.webp
+
+FILE ẢNH CŨ (sản phẩm đã có sẵn):
+- 101.jpg - 109.jpg (CPU)
+- 110.webp (CPU AMD Ryzen 9 7950X3D)
+- 201.jpg - 206.jpg (Tản khí)
+- 301.jpg - 308.jpg (Mainboard)
+- 401.jpg - 407.jpg (RAM)
+- 501.jpg - 510.jpg (VGA)
+- 601.jpg - 608.jpg (SSD/HDD)
+- 1001.jpg - 1009.jpg (Màn hình)
+- 1101.jpg - 1108.webp (Phụ kiện)
+- 1201.jpg - 1204.jpg (Laptop)
+- 1301.jpg (PC Build)
+
+LƯU Ý:
+- Các file ảnh mới nhất (1401-1806) là các sản phẩm giá cao từ An Phát PC
+- Các file .webp là ảnh định dạng WebP (siêu nhỏ gọn)
+- Các file .jpg là ảnh định dạng JPEG
+- Các file .png là ảnh định dạng PNG
