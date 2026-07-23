@@ -1,5 +1,0 @@
-[
-  { "id": 1, "maCoupon": "PCZONE10", "moTa": "Giảm 10% cho đơn từ 5 triệu", "phanTramGiam": 10, "soTienGiamToiDa": 1000000, "dieuKienToiThieu": 5000000, "ngayBatDau": "2025-01-01T00:00:00", "ngayHetHan": "2025-12-31T00:00:00", "soLuong": 100, "daSuDung": 15, "dangHoatDong": true },
-  { "id": 2, "maCoupon": "SALE20", "moTa": "Giảm 20% cho đơn từ 10 triệu", "phanTramGiam": 20, "soTienGiamToiDa": 3000000, "dieuKienToiThieu": 10000000, "ngayBatDau": "2025-01-01T00:00:00", "ngayHetHan": "2025-08-31T00:00:00", "soLuong": 50, "daSuDung": 8, "dangHoatDong": true },
-  { "id": 3, "maCoupon": "FREESHIP", "moTa": "Miễn phí vận chuyển cho đơn từ 3 triệu", "phanTramGiam": 0, "soTienGiamToiDa": 50000, "dieuKienToiThieu": 3000000, "ngayBatDau": "2025-01-01T00:00:00", "ngayHetHan": "2025-07-31T00:00:00", "soLuong": 200, "daSuDung": 32, "dangHoatDong": true }
-]
