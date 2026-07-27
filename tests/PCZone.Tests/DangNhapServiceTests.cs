@@ -43,7 +43,7 @@ public class DangNhapServiceTests
             Id = 1,
             Ten = "Test User",
             Email = "test@example.com",
-            MatKhau = "password123",
+            MatKhau = BCrypt.Net.BCrypt.HashPassword("password123"),
             VaiTro = "Customer"
         };
 
@@ -76,7 +76,7 @@ public class DangNhapServiceTests
             Id = 1,
             Ten = "Test User",
             Email = "test@example.com",
-            MatKhau = "correctpassword",
+            MatKhau = BCrypt.Net.BCrypt.HashPassword("correctpassword"),
             VaiTro = "Customer"
         };
 
