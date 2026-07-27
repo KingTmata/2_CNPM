@@ -18,9 +18,8 @@ public class DangKyDto
     public string MatKhau { get; set; } = string.Empty;
 
     [StringLength(20, ErrorMessage = "Số điện thoại không được quá 20 ký tự")]
-    [Phone(ErrorMessage = "Số điện thoại không hợp lệ")]
-    public string SoDienThoai { get; set; } = string.Empty;
+    public string? SoDienThoai { get; set; }
 
     [StringLength(500, ErrorMessage = "Địa chỉ không được quá 500 ký tự")]
-    public string DiaChi { get; set; } = string.Empty;
+    public string? DiaChi { get; set; }
 }

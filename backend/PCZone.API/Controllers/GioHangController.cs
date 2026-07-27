@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PCZone.API.DTOs;
 using PCZone.API.Services;
@@ -6,6 +7,7 @@ namespace PCZone.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class GioHangController : ControllerBase
 {
     private readonly IGioHangService _gioHangService;

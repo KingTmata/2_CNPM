@@ -32,6 +32,8 @@ public class KhachHangService : IKhachHangService
             throw new Exception("Email đã được đăng ký");
 
         var khachHang = dto.ToKhachHang();
+        // Hash mật khẩu trước khi lưu
+        khachHang.MatKhau = BCrypt.Net.BCrypt.HashPassword(dto.MatKhau);
 
         await _repository.ThemAsync(khachHang);
         await _repository.LuuAsync();

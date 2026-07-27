@@ -68,8 +68,8 @@ public static class MapHelper
             Ten = dto.Ten,
             Email = dto.Email,
             MatKhau = dto.MatKhau,
-            SoDienThoai = dto.SoDienThoai,
-            DiaChi = dto.DiaChi,
+            SoDienThoai = dto.SoDienThoai ?? string.Empty,
+            DiaChi = dto.DiaChi ?? string.Empty,
             VaiTro = "Customer",
             NgayTao = DateTime.Now
         };

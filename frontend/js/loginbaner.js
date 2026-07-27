@@ -117,6 +117,45 @@ var settingsHTML = '<div class="settings-overlay" id="settingsOverlay">' +
 '</div>';
 document.body.insertAdjacentHTML('beforeend', settingsHTML);
 
+// ===== TẠO REGISTER POPUP =====
+var registerHTML = '<div class="login-modal" id="registerModal">' +
+  '<div class="login-box">' +
+    '<button class="login-close" id="registerClose">&times;</button>' +
+    '<h2 class="login-title">📝 Đăng ký tài khoản</h2>' +
+    '<p class="login-subtitle">Tạo tài khoản mới để mua sắm tại PCZONE</p>' +
+    '<div id="registerError" style="display:none;color:#dc2626;background:#fee2e2;padding:10px;border-radius:8px;margin-bottom:12px;font-size:13px;font-weight:600;text-align:center"></div>' +
+    '<div class="login-field">' +
+      '<label>Họ tên *</label>' +
+      '<input type="text" id="regName" placeholder="Nhập họ tên">' +
+    '</div>' +
+    '<div class="login-field">' +
+      '<label>Email *</label>' +
+      '<input type="email" id="regEmail" placeholder="email@vi-du.com">' +
+    '</div>' +
+    '<div class="login-field">' +
+      '<label>Số điện thoại</label>' +
+      '<input type="tel" id="regPhone" placeholder="Số điện thoại">' +
+    '</div>' +
+    '<div class="login-field">' +
+      '<label>Địa chỉ</label>' +
+      '<input type="text" id="regAddress" placeholder="Địa chỉ nhận hàng">' +
+    '</div>' +
+    '<div class="login-field">' +
+      '<label>Mật khẩu * (tối thiểu 6 ký tự)</label>' +
+      '<input type="password" id="regPassword" placeholder="••••••••">' +
+    '</div>' +
+    '<div class="login-field">' +
+      '<label>Xác nhận mật khẩu *</label>' +
+      '<input type="password" id="regConfirm" placeholder="Nhập lại mật khẩu">' +
+    '</div>' +
+    '<button class="login-btn" id="registerBtn" style="margin-bottom:12px;">📝 Đăng ký</button>' +
+    '<div style="text-align:center;font-size:13px;color:#718096;">' +
+      'Đã có tài khoản? <a href="#" id="switchToLogin" style="color:#00bcd4;font-weight:700;">Đăng nhập</a>' +
+    '</div>' +
+  '</div>' +
+'</div>';
+document.body.insertAdjacentHTML('beforeend', registerHTML);
+
 // Danh sách tài khoản → lấy từ data-customers.js (ACCOUNTS)
 
 // ===== TRẠNG THÁI ĐĂNG NHẬP (đồng bộ localStorage) =====
@@ -202,6 +241,45 @@ loginModal.addEventListener('click', function(e) {
   if (e.target === loginModal) closeModal();
 });
 
+// ===== REGISTER MODAL EVENTS =====
+var registerModal = document.getElementById('registerModal');
+var registerClose = document.getElementById('registerClose');
+var registerBtn = document.getElementById('registerBtn');
+var registerError = document.getElementById('registerError');
+var switchToLogin = document.getElementById('switchToLogin');
+
+// Đóng register modal
+registerClose.addEventListener('click', function() { registerModal.classList.remove('show'); });
+registerModal.addEventListener('click', function(e) { if (e.target === registerModal) registerModal.classList.remove('show'); });
+
+// Chuyển từ register → login
+switchToLogin.addEventListener('click', function(e) {
+  e.preventDefault();
+  registerModal.classList.remove('show');
+  openModal();
+});
+
+// Thêm nút "Đăng ký" vào login modal
+var loginRegisterLink = document.createElement('div');
+loginRegisterLink.style.cssText = 'text-align:center;font-size:13px;color:#718096;margin-top:15px;';
+loginRegisterLink.innerHTML = 'Chưa có tài khoản? <a href="#" id="gotoRegister" style="color:#00bcd4;font-weight:700;">Đăng ký ngay</a>';
+document.querySelector('.login-box').appendChild(loginRegisterLink);
+
+document.getElementById('gotoRegister').addEventListener('click', function(e) {
+  e.preventDefault();
+  closeModal();
+  registerModal.classList.add('show');
+  document.getElementById('regName').focus();
+  registerError.style.display = 'none';
+});
+
+// Bấm nút đăng ký
+registerBtn.addEventListener('click', doRegister);
+// Enter trong register
+document.getElementById('regConfirm').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') doRegister();
+});
+
 // Bấm nút đăng nhập
 loginBtn.addEventListener('click', doLogin);
 
@@ -220,37 +298,120 @@ function closeModal() {
   loginModal.classList.remove('show');
 }
 
-function doLogin() {
+// ===== HÀM ĐĂNG KÝ =====
+async function doRegister() {
+  var name = document.getElementById('regName').value.trim();
+  var email = document.getElementById('regEmail').value.trim();
+  var phone = document.getElementById('regPhone').value.trim();
+  var address = document.getElementById('regAddress').value.trim();
+  var password = document.getElementById('regPassword').value;
+  var confirm = document.getElementById('regConfirm').value;
+
+  if (!name || !email || !password) {
+    registerError.textContent = '❌ Vui lòng điền đầy đủ họ tên, email và mật khẩu!';
+    registerError.style.display = 'block';
+    return;
+  }
+
+  if (password.length < 6) {
+    registerError.textContent = '❌ Mật khẩu phải có ít nhất 6 ký tự!';
+    registerError.style.display = 'block';
+    return;
+  }
+
+  if (password !== confirm) {
+    registerError.textContent = '❌ Mật khẩu xác nhận không khớp!';
+    registerError.style.display = 'block';
+    return;
+  }
+
+  try {
+    const result = await apiRegister({
+      ten: name,
+      email: email,
+      matKhau: password,
+      soDienThoai: phone,
+      diaChi: address
+    });
+
+    // Đăng ký thành công → đóng register, mở login
+    registerModal.classList.remove('show');
+    showToast('✅ Đăng ký thành công! Vui lòng đăng nhập.', '#22C55E');
+
+    // Mở login modal, điền sẵn email
+    setTimeout(function() {
+      openModal();
+      document.getElementById('loginEmail').value = email;
+      document.getElementById('loginPassword').focus();
+    }, 500);
+  } catch (error) {
+    var errMsg = error.message || 'Đăng ký thất bại!';
+    // Nếu lỗi từ backend validation, nó có dạng JSON errors
+    if (errMsg.indexOf('{') >= 0) {
+      try {
+        var parsed = JSON.parse(errMsg);
+        if (parsed.errors) {
+          var allErrors = [];
+          for (var key in parsed.errors) {
+            allErrors.push(parsed.errors[key].join(', '));
+          }
+          errMsg = allErrors.join('; ');
+        } else if (parsed.title) {
+          errMsg = parsed.title;
+        }
+      } catch(e) {}
+    }
+    registerError.textContent = '❌ ' + errMsg;
+    registerError.style.display = 'block';
+    console.error('Register error:', error);
+  }
+}
+
+async function doLogin() {
   var email    = document.getElementById('loginEmail').value.trim();
   var password = document.getElementById('loginPassword').value;
 
-  // Tìm tài khoản khớp
-  var found = ACCOUNTS.find(function(acc) {
-    return acc.email === email && acc.password === password;
-  });
-
-  if (!found) {
-    // Sai → hiện lỗi
-    loginError.textContent = '❌ Email hoặc mật khẩu không đúng!';
+  if (!email || !password) {
+    loginError.textContent = '❌ Vui lòng nhập email và mật khẩu!';
     loginError.style.display = 'block';
     return;
   }
 
-  // Đúng → lưu user vào localStorage, đóng modal, cập nhật UI
-  currentUser = found;
-  localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(found));
-  closeModal();
-  updateNavAfterLogin(found);
+  try {
+    // Gọi API backend để đăng nhập — nhận JWT token
+    const result = await apiLogin(email, password);
 
-  // Nếu là admin → chuyển sang trang admin
-  if (found.role === 'admin') {
-    window.location.href = 'admin.html';
+    // result trả về: { id, ten, email, vaiTro, token }
+    // apiLogin() đã lưu token vào localStorage 'pczone_token' qua saveToken()
+
+    // Lưu thông tin user để UI dùng (avatar, dropdown, role)
+    currentUser = {
+      id: result.id,
+      name: result.ten,
+      email: result.email,
+      role: result.vaiTro.toLowerCase()
+    };
+    localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(currentUser));
+
+    // Đóng modal và cập nhật UI
+    closeModal();
+    updateNavAfterLogin(currentUser);
+
+    // Nếu là admin → chuyển sang trang admin
+    if (currentUser.role === 'admin') {
+      window.location.href = 'admin.html';
+    }
+  } catch (error) {
+    loginError.textContent = '❌ ' + (error.message || 'Đăng nhập thất bại!');
+    loginError.style.display = 'block';
   }
 }
 
 function logout() {
   currentUser = null;
+  // Xóa cả token và user info
   localStorage.removeItem(USER_STORAGE_KEY);
+  apiLogout(); // Xóa token khỏi localStorage
   // Reset avatar về trạng thái ban đầu
   avatarBtn.innerHTML = '<svg viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>';
   avatarBtn.classList.remove('avatar-logged');

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PCZone.API.DTOs;
 using PCZone.API.Services;
@@ -15,7 +16,7 @@ public class SanPhamController : ControllerBase
         _sanPhamService = sanPhamService;
     }
 
-    // GET: api/SanPham
+    // GET: api/SanPham (công khai)
     [HttpGet]
     public async Task<IActionResult> LayTatCa()
     {
@@ -23,7 +24,7 @@ public class SanPhamController : ControllerBase
         return Ok(data);
     }
 
-    // GET: api/SanPham/{id}
+    // GET: api/SanPham/{id} (công khai)
     [HttpGet("{id}")]
     public async Task<IActionResult> LayTheoId(int id)
     {
@@ -35,16 +36,18 @@ public class SanPhamController : ControllerBase
         return Ok(data);
     }
 
-    // POST: api/SanPham
+    // POST: api/SanPham (chỉ Admin)
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Tao([FromBody] TaoSanPhamDto dto)
     {
         await _sanPhamService.TaoAsync(dto);
         return Ok(new { message = "Tạo sản phẩm thành công" });
     }
 
-    // PUT: api/SanPham/{id}
+    // PUT: api/SanPham/{id} (chỉ Admin)
     [HttpPut("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> CapNhat(int id, [FromBody] CapNhatSanPhamDto dto)
     {
         var result = await _sanPhamService.CapNhatAsync(id, dto);
@@ -55,8 +58,9 @@ public class SanPhamController : ControllerBase
         return Ok(new { message = "Cập nhật thành công" });
     }
 
-    // DELETE: api/SanPham/{id}
+    // DELETE: api/SanPham/{id} (chỉ Admin)
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Xoa(int id)
     {
         var result = await _sanPhamService.XoaAsync(id);

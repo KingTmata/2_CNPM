@@ -1,10 +1,17 @@
 ﻿/* ============================================
    PCZONE - API CLIENT
    Kết nối frontend với backend ASP.NET Core
-   Base URL: https://localhost:5000 (có thể thay đổi)
+   Tự động chọn: localhost (khi dev) hoặc Render (khi deploy)
    ============================================ */
 
-const API_BASE_URL = 'https://two-cnpm.onrender.com';
+// Tự động phát hiện môi trường
+const _isLocal = window.location.hostname === 'localhost' || 
+                 window.location.hostname === '127.0.0.1' || 
+                 window.location.protocol === 'file:';
+
+const API_BASE_URL = _isLocal 
+    ? 'http://localhost:5042' 
+    : 'https://two-cnpm.onrender.com';
 
 // ===== HÀM GỌI API CƠ BẢN =====
 
@@ -24,17 +31,22 @@ async function apiGet(url) {
 }
 
 async function apiPost(url, data) {
-    const response = await fetch(API_BASE_URL + url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            ...getAuthHeader()
-        },
-        body: JSON.stringify(data)
-    });
+    let response;
+    try {
+        response = await fetch(API_BASE_URL + url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                ...getAuthHeader()
+            },
+            body: JSON.stringify(data)
+        });
+    } catch (e) {
+        throw new Error('Không thể kết nối đến máy chủ. Hãy đảm bảo backend đang chạy tại ' + API_BASE_URL);
+    }
     if (!response.ok) {
-        const error = await response.json().catch(() => ({ message: 'Lỗi kết nối' }));
-        throw new Error(error.message || 'Lỗi kết nối');
+        const error = await response.json().catch(() => ({ message: 'Lỗi ' + response.status + ': ' + response.statusText }));
+        throw new Error(error.message || 'Lỗi ' + response.status);
     }
     return await response.json();
 }

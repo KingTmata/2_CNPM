@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PCZone.API.DTOs;
 using PCZone.API.Services;
@@ -25,6 +26,7 @@ public class DanhGiaController : ControllerBase
 
     // POST: api/DanhGia
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> Tao([FromBody] TaoDanhGiaDto dto)
     {
         try
@@ -40,6 +42,7 @@ public class DanhGiaController : ControllerBase
 
     // PUT: api/DanhGia/{id}
     [HttpPut("{id}")]
+    [Authorize]
     public async Task<IActionResult> CapNhat(int id, [FromBody] CapNhatDanhGiaDto dto)
     {
         try
@@ -57,6 +60,7 @@ public class DanhGiaController : ControllerBase
 
     // DELETE: api/DanhGia/{id}
     [HttpDelete("{id}")]
+    [Authorize]
     public async Task<IActionResult> Xoa(int id)
     {
         var result = await _danhGiaService.XoaAsync(id);

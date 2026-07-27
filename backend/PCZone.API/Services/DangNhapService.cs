@@ -1,7 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using PCZone.API.DTOs;
 using PCZone.API.Repositories;
@@ -22,7 +21,7 @@ public class DangNhapService : IDangNhapService
     public async Task<DangNhapResponse> DangNhapAsync(DangNhapDto dto)
     {
         var khachHang = await _khachHangRepository.LayTheoEmailAsync(dto.Email);
-        if (khachHang == null || khachHang.MatKhau != dto.MatKhau)
+        if (khachHang == null || !BCrypt.Net.BCrypt.Verify(dto.MatKhau, khachHang.MatKhau))
             throw new Exception("Email hoặc mật khẩu không đúng");
 
         var token = TaoToken(khachHang);

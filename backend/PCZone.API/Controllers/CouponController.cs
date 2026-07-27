@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PCZone.API.DTOs;
 using PCZone.API.Services;
@@ -15,7 +16,7 @@ public class CouponController : ControllerBase
         _couponService = couponService;
     }
 
-    // GET: api/Coupon
+    // GET: api/Coupon (công khai - để áp mã tại thanh toán)
     [HttpGet]
     public async Task<IActionResult> LayTatCa()
     {
@@ -33,7 +34,7 @@ public class CouponController : ControllerBase
         return Ok(data);
     }
 
-    // GET: api/Coupon/ma/{maCoupon}
+    // GET: api/Coupon/ma/{maCoupon} (công khai)
     [HttpGet("ma/{maCoupon}")]
     public async Task<IActionResult> LayTheoMa(string maCoupon)
     {
@@ -43,8 +44,9 @@ public class CouponController : ControllerBase
         return Ok(data);
     }
 
-    // POST: api/Coupon
+    // POST: api/Coupon (chỉ Admin)
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Tao([FromBody] TaoCouponDto dto)
     {
         try
@@ -58,8 +60,9 @@ public class CouponController : ControllerBase
         }
     }
 
-    // PUT: api/Coupon/{id}
+    // PUT: api/Coupon/{id} (chỉ Admin)
     [HttpPut("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> CapNhat(int id, [FromBody] CapNhatCouponDto dto)
     {
         var result = await _couponService.CapNhatAsync(id, dto);
@@ -68,8 +71,9 @@ public class CouponController : ControllerBase
         return Ok(result);
     }
 
-    // DELETE: api/Coupon/{id}
+    // DELETE: api/Coupon/{id} (chỉ Admin)
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Xoa(int id)
     {
         var result = await _couponService.XoaAsync(id);

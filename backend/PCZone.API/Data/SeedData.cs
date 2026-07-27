@@ -39,6 +39,11 @@ public static class SeedData
             var khachHangs = DocJson<List<KhachHang>>("khach-hang.json");
             if (khachHangs != null)
             {
+                // Hash tất cả mật khẩu trước khi seed (vì backend đã chuyển sang BCrypt)
+                foreach (var kh in khachHangs)
+                {
+                    kh.MatKhau = BCrypt.Net.BCrypt.HashPassword(kh.MatKhau);
+                }
                 db.KhachHangs.AddRange(khachHangs);
                 db.SaveChanges();
             }
