@@ -43,10 +43,6 @@ class SanPham {
     }
 
     getLinkChiTiet() {
-        // Kiểm tra nếu đã ở trong thư mục pages/ thì không thêm pages/ nữa
-        if (window.location.pathname.includes('/pages/')) {
-            return 'chi-tiet-sp.html?id=' + this.id;
-        }
         return 'pages/chi-tiet-sp.html?id=' + this.id;
     }
 
