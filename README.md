@@ -1,7 +1,5 @@
 # PCZONE - Website bán máy tính và linh kiện PC
 
-![.NET Build & Test](https://github.com/KingTmata/2_CNPM/actions/workflows/dotnet.yml/badge.svg)
-
 ## Giới thiệu
 
 PCZONE là website thương mại điện tử chuyên bán máy tính, laptop, linh kiện và phụ kiện PC. Hệ thống được xây dựng theo kiến trúc Layered Monolithic với RESTful API, cho phép khách hàng tìm kiếm, so sánh, build PC và đặt mua sản phẩm trực tuyến. Quản trị viên có thể quản lý sản phẩm, đơn hàng và theo dõi doanh thu qua trang quản trị riêng.
